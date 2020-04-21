@@ -80,18 +80,6 @@ print("4. How many times is each country present in the dataset (value counts)?"
 for key, value in count_dict.items():
     print(f"{key}     presents   {value} times.")
 print("6. Which country has the most deaths altogether and how many?", end=' ')
-# uniq_country = set(column_list)
-# death_list = ["", 0]
-# for item in uniq_country:
-#     data_deaths = data_table.filter_values('country', item)
-#     total = 0.0
-#     for i in data_deaths:
-#         if i[5]:
-#             total += float(i[5])
-#     if total > death_list[1]:
-#         death_list[0] = i[2]
-#         death_list[1] = total
-# print(f"   {death_list[0]} -----> {death_list[1]} deaths")
 
 print("9. When did number of confirmed cases in the US reach 1000?", end=' ')
 data_confirmed = data_table.filter_values('country', 'US')
