@@ -55,7 +55,7 @@ class DataTable:
 
 
 data_table = DataTable()
-data_table.read_csv('textfiles/covid-19_data.csv')
+list_a = data_table.read_csv('textfiles/covid-19_data.csv')
 
 column_list = data_table.locate_column('country')
 value_at_index = data_table.locate_index(1111)
@@ -81,6 +81,22 @@ for key, value in count_dict.items():
     print(f"{key}     presents   {value} times.")
 print("6. Which country has the most deaths altogether and how many?", end=' ')
 # add something here ...... make a dictionary and put country as key and deaths count as value
+deaths_dict = {}
+for row in list_a:
+    if row['deaths'] != 'N/A':
+        if row['country'] not in deaths_dict:
+            deaths_dict[row['country']] = 0
+        deaths_dict[row['country']] += float(row['deaths'])
+
+deaths_list = list(deaths_dict.items())
+
+
+def second_element(val):
+    return val[1]
+
+
+deaths_list.sort(key=second_element, reverse=True)
+print(deaths_list[0][0], "has max deaths: ", deaths_list[0][1])
 
 print("9. When did number of confirmed cases in the US reach 1000?", end=' ')
 data_confirmed = data_table.filter_values('country', 'US')
@@ -114,4 +130,3 @@ for i, country in enumerate(countries_list):
 
 for i in new_cases:
     print(f"{i[0]} had {i[2]} cases on date {i[1]}")
-
