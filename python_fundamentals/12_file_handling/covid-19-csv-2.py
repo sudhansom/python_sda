@@ -66,7 +66,10 @@ data_table.read_csv('textfiles/covid-19_data.csv')
 column_list = data_table.locate_column(['index', 'country', 'confirmed', 'date', 'recovered', 'deaths'])
 for i in range(20):
     for value in column_list:
-        print(value[i], end=', ')
+        if column_list[-1] == value:
+            print(value[i], end='')
+        else:
+            print(value[i], end=', ')
     print()
 
-print(filter_values())
+
