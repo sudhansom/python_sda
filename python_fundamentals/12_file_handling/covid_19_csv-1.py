@@ -80,6 +80,7 @@ print("4. How many times is each country present in the dataset (value counts)?"
 for key, value in count_dict.items():
     print(f"{key}     presents   {value} times.")
 print("6. Which country has the most deaths altogether and how many?", end=' ')
+# add something here ...... make a dictionary and put country as key and deaths count as value
 
 print("9. When did number of confirmed cases in the US reach 1000?", end=' ')
 data_confirmed = data_table.filter_values('country', 'US')
