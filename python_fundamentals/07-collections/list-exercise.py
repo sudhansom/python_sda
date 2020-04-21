@@ -1,0 +1,22 @@
+given_list = [1, 2, 3, 4, 5]
+print(given_list[0:5:1])
+print(f"length of the given list is : {len(given_list)}")
+given_list.append(2)
+given_list.extend([6, 7, 8])
+print(given_list)
+print(given_list.count(7))
+print(given_list.index(1))
+given_list.insert(0, 10)
+print(given_list)
+given_list.pop()
+print(given_list)
+given_list.remove(4)
+print(given_list)
+given_list.reverse()
+given_list.sort()
+print(given_list)
+given_list.clear()
+print(given_list)
+print(ord('a'))
+
+
