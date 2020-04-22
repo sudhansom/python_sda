@@ -42,6 +42,19 @@ class DataTable:
                 column_list[j].append(dict_value_list[i][dict_key_list.index(col_name_list[j])])
         return column_list
 
+    def ilocate_column(self, icolumn):
+        dict_key_list, dict_value_list = data_table.key_value_list()
+        col_name_list = []
+        if type(icolumn).__name__ == 'list':
+            col_name_list.extend(icolumn)
+        else:
+            col_name_list = [icolumn]
+        column_list = [[] for col in col_name_list]
+        for i in range(len(dict_value_list)):
+            for j in range(len(col_name_list)):
+                column_list[j].append(dict_value_list[i][j])
+        return column_list
+
     def locate_index(self, index_number):
         dict_key_list, dict_value_list = data_table.key_value_list()
         list_at_index = []
@@ -63,7 +76,9 @@ class DataTable:
 data_table = DataTable()
 data_table.read_csv('textfiles/covid-19_data.csv')
 
-column_list = data_table.locate_column(['index', 'country', 'confirmed', 'date', 'recovered', 'deaths'])
+# column_list = data_table.locate_column(['index', 'country', 'confirmed', 'date', 'recovered', 'deaths'])
+
+column_list = data_table.ilocate_column([0, 1, 2, 3])
 for i in range(20):
     for value in column_list:
         if column_list[-1] == value:
@@ -71,5 +86,3 @@ for i in range(20):
         else:
             print(value[i], end=', ')
     print()
-
-
