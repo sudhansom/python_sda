@@ -42,18 +42,17 @@ class DataTable:
                 column_list[j].append(dict_value_list[i][dict_key_list.index(col_name_list[j])])
         return column_list
 
-    def ilocate_column(self, icolumn):
+    def ilocate_column(self, col_num):
         dict_key_list, dict_value_list = data_table.key_value_list()
         col_name_list = []
-        if type(icolumn).__name__ == 'list':
-            col_name_list.extend(icolumn)
+        if type(col_num).__name__ == 'list':
+            col_name_list.extend(col_num)
         else:
-            col_name_list.append(icolumn)
+            col_name_list.append(col_num)
         column_list = [[] for col in col_name_list]
         for i in range(len(dict_value_list)):
             for k, j in enumerate(col_name_list):
-                if i == j:
-                    column_list[k].extend(dict_value_list[i])
+                    column_list[k].append(dict_value_list[i][j])
         return column_list
 
     def locate_index(self, index_number):
@@ -67,7 +66,7 @@ class DataTable:
         for i in range(len(dict_value_list)):
             for k, j in enumerate(list_at_index):
                 if i == j:
-                    column_list[k].append(dict_value_list[i])
+                    column_list[k].extend(dict_value_list[i])
         return column_list
 
     def value_counts(self, column_name):
@@ -85,10 +84,11 @@ data_table.read_csv('textfiles/covid-19_data.csv')
 
 # column_list = data_table.locate_column(['index', 'country', 'confirmed', 'date', 'recovered', 'deaths'])
 
-column_list = data_table.ilocate_column([1, 3, 4])
-for value in column_list:
-    print(value)
+# column_list = data_table.ilocate_column([1, 0, 2])
+# for value in column_list:
+#     print(value)
+
 
 # column_list = data_table.locate_index([1, 2, 3000])
 # for row in column_list:
-#     print(row)
+#    print(row)
