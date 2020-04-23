@@ -42,32 +42,26 @@ class DataTable:
                 column_list[j].append(dict_value_list[i][dict_key_list.index(col_name_list[j])])
         return column_list
 
-    def ilocate_column(self, col_num):
+    def ilocate_column(self, icolumn):
         dict_key_list, dict_value_list = data_table.key_value_list()
         col_name_list = []
-        if type(col_num).__name__ == 'list':
-            col_name_list.extend(col_num)
+        if type(icolumn).__name__ == 'list':
+            col_name_list.extend(icolumn)
         else:
-            col_name_list.append(col_num)
-        column_list = [[] for col in col_name_list]
+            col_name_list = [icolumn]
+        column_list = []
         for i in range(len(dict_value_list)):
-            for k, j in enumerate(col_name_list):
-                    column_list[k].append(dict_value_list[i][j])
+            if i in col_name_list:
+                column_list.append(dict_value_list[i])
         return column_list
 
     def locate_index(self, index_number):
         dict_key_list, dict_value_list = data_table.key_value_list()
         list_at_index = []
-        if type(index_number).__name__ == 'list':
-            list_at_index.extend(index_number)
-        else:
-            list_at_index.append(index_number)
-        column_list = [[] for col in list_at_index]
         for i in range(len(dict_value_list)):
-            for k, j in enumerate(list_at_index):
-                if i == j:
-                    column_list[k].extend(dict_value_list[i])
-        return column_list
+            if i == index_number:
+                list_at_index = dict_value_list[i]
+        return list_at_index
 
     def value_counts(self, column_name):
         dict_key_list, dict_value_list = data_table.key_value_list()
@@ -84,11 +78,6 @@ data_table.read_csv('textfiles/covid-19_data.csv')
 
 # column_list = data_table.locate_column(['index', 'country', 'confirmed', 'date', 'recovered', 'deaths'])
 
-# column_list = data_table.ilocate_column([1, 0, 2])
+# column_list = data_table.ilocate_column([0, 3, 3000])
 # for value in column_list:
 #     print(value)
-
-
-# column_list = data_table.locate_index([1, 2, 3000])
-# for row in column_list:
-#    print(row)

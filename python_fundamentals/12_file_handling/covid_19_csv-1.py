@@ -69,8 +69,8 @@ print(len(value_at_index))
 print("3. What is the number of recovered in Denmark in the dataset altogether?", end='    ')
 data_recovered = data_table.filter_values('country', 'Denmark')
 total = 0.0
-for i in data_recovered:
-    total += float(i[6])
+for row in data_recovered:
+    total += float(row[6])
 print(total)
 print("4. How many times is each day present in the dataset (value counts)?")
 count_date = data_table.value_counts('date')
@@ -80,7 +80,6 @@ print("4. How many times is each country present in the dataset (value counts)?"
 for key, value in count_dict.items():
     print(f"{key}     presents   {value} times.")
 print("6. Which country has the most deaths altogether and how many?", end=' ')
-# add something here ...... make a dictionary and put country as key and deaths count as value
 deaths_dict = {}
 for row in list_a:
     if row['deaths'] != 'N/A':
@@ -122,7 +121,6 @@ new_cases = [[countries_list[i], "", 0.0] for i in range(len(countries_list))]
 
 for i, country in enumerate(countries_list):
     country_details = data_table.filter_values('country', country)
-    max_case = 0
     for item in country_details:
         if float(item[4]) > (new_cases[i][2]):
             new_cases[i][2] = float(item[4])
