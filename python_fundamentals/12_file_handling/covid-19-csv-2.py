@@ -19,7 +19,7 @@ class DataTable:
         with open(path, 'r') as csv_file:
             csv_reader = csv.DictReader(csv_file)
             self.data = [row for row in csv_reader]
-        return self.data  # returns list of dictionaries
+        return self  # returns list of dictionaries
 
     def key_value_list(self):
         dict_key_tolist = [key for key in self.data[0]]
@@ -40,7 +40,23 @@ class DataTable:
         for i in range(len(dict_value_list)):
             for j in range(len(col_name_list)):
                 column_list[j].append(dict_value_list[i][dict_key_list.index(col_name_list[j])])
-        return column_list
+
+        with open("textfiles/new_temp_csv.csv", 'w') as f:
+            for value in col_name_list:
+                f.write(value)
+                if value != col_name_list[-1]:
+                    f.write(',')
+            f.write('\n')
+            for i in range(len(column_list[0])):
+                for j, value in enumerate(column_list):
+                    f.write(column_list[j][i])
+                    if value != column_list[-1]:
+                        f.write(',')
+                f.write('\n')
+
+
+
+        return self.read_csv("textfiles/new_temp_csv.csv")
 
     def ilocate_column(self, col_num):
         dict_key_list, dict_value_list = data_table.key_value_list()
@@ -82,7 +98,9 @@ class DataTable:
 data_table = DataTable()
 data_table.read_csv('textfiles/covid-19_data.csv')
 
-# column_list = data_table.locate_column(['index', 'country', 'confirmed', 'date', 'recovered', 'deaths'])
+column_list = data_table.locate_column(['index', 'country', 'confirmed', 'date', 'recovered', 'deaths'])
+
+print(column_list.data[1111])
 
 # column_list = data_table.ilocate_column([1, 0, 2])
 # for value in column_list:
