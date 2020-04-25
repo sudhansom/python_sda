@@ -10,6 +10,21 @@ def filter_values(column='country', value='Nepal'):
     return data_country
 
 
+def make_temp_csv_file(col_name_list, column_list):
+    with open("textfiles/new_temp_csv.csv", 'w') as f:
+        for value in col_name_list:
+            f.write(value)
+            if value != col_name_list[-1]:
+                f.write(',')
+        f.write('\n')
+        for i in range(len(column_list[0])):
+            for j, value in enumerate(column_list):
+                f.write(column_list[j][i])
+                if value != column_list[-1]:
+                    f.write(',')
+            f.write('\n')
+
+
 class DataTable:
 
     def __init__(self):
@@ -19,7 +34,7 @@ class DataTable:
         with open(path, 'r') as csv_file:
             csv_reader = csv.DictReader(csv_file)
             self.data = [row for row in csv_reader]
-        return self  # returns list of dictionaries
+        # return self  # returns the object of the class...
 
     def key_value_list(self):
         dict_key_tolist = [key for key in self.data[0]]
@@ -41,22 +56,11 @@ class DataTable:
             for j in range(len(col_name_list)):
                 column_list[j].append(dict_value_list[i][dict_key_list.index(col_name_list[j])])
 
-        with open("textfiles/new_temp_csv.csv", 'w') as f:
-            for value in col_name_list:
-                f.write(value)
-                if value != col_name_list[-1]:
-                    f.write(',')
-            f.write('\n')
-            for i in range(len(column_list[0])):
-                for j, value in enumerate(column_list):
-                    f.write(column_list[j][i])
-                    if value != column_list[-1]:
-                        f.write(',')
-                f.write('\n')
+        make_temp_csv_file(col_name_list, column_list)
+        obj_dtable = DataTable()
+        obj_dtable.read_csv("textfiles/new_temp_csv.csv")
 
-
-
-        return self.read_csv("textfiles/new_temp_csv.csv")
+        return obj_dtable
 
     def ilocate_column(self, col_num):
         dict_key_list, dict_value_list = data_table.key_value_list()
@@ -68,8 +72,15 @@ class DataTable:
         column_list = [[] for col in col_name_list]
         for i in range(len(dict_value_list)):
             for k, j in enumerate(col_name_list):
-                    column_list[k].append(dict_value_list[i][j])
-        return column_list
+                column_list[k].append(dict_value_list[i][j])
+        new_column = []
+        for i in col_name_list:
+            new_column.append(dict_key_list[i])
+
+        make_temp_csv_file(new_column, column_list)
+        obj_dtable = DataTable()
+        obj_dtable.read_csv("textfiles/new_temp_csv.csv")
+        return obj_dtable
 
     def locate_index(self, index_number):
         dict_key_list, dict_value_list = data_table.key_value_list()
@@ -83,7 +94,16 @@ class DataTable:
             for k, j in enumerate(list_at_index):
                 if i == j:
                     column_list[k].extend(dict_value_list[i])
-        return column_list
+
+        new_col = [[] for i in dict_key_list] # formatting the style of data from column_list to new_col
+        for row in column_list:
+            for i, value in enumerate(row):
+                new_col[i].append(value)
+
+        make_temp_csv_file(dict_key_list, new_col)
+        obj_dtable = DataTable()
+        obj_dtable.read_csv("textfiles/new_temp_csv.csv")
+        return obj_dtable
 
     def value_counts(self, column_name):
         dict_key_list, dict_value_list = data_table.key_value_list()
@@ -96,17 +116,20 @@ class DataTable:
 
 
 data_table = DataTable()
-data_table.read_csv('textfiles/covid-19_data.csv')
+data_table.read_csv('textfiles/newdata.csv')
 
-column_list = data_table.locate_column(['index', 'country', 'confirmed', 'date', 'recovered', 'deaths'])
-
-print(column_list.data[1111])
+# column_list = data_table.locate_column(['index', 'country', 'confirmed', 'date', 'recovered', 'deaths'])
+# print(data_table is column_list)
+# print(len(data_table.data[0]))
+# print(len(column_list.data[0]))
+# print(type(column_list))
 
 # column_list = data_table.ilocate_column([1, 0, 2])
-# for value in column_list:
-#     print(value)
 
 
 # column_list = data_table.locate_index([1, 2, 3000])
-# for row in column_list:
-#    print(row)
+# for row in column_list.data:
+#     print(row)
+
+
+
